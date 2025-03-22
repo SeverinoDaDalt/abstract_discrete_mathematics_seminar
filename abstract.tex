@@ -12,7 +12,8 @@
 \usepackage{amssymb}
 \usepackage{tikz-cd}
 \usepackage{wasysym}
-%These are my Commutative Algebra Teory notes from the course given by Prof. Josep Alvarez Montaner at UPC in 2023.
+\DeclareSymbolFont{matha}{OML}{txmi}{m}{it}% txfonts
+\DeclareMathSymbol{\varv}{\mathord}{matha}{118}
 
 % Title
 \title{Seminar on Algebra, Geometry and Discrete Mathematics}
@@ -33,23 +34,53 @@
     \maketitle
 
     \section{Proof of asymptotic behaviour of eigenvalues in families of expanders}\label{sec:section}
+    The main topic of the seminar is the study of families of expanders in the context of connected, $k$-regular and finite graphs.
+    A family of expanders consists in a sequence of graphs of increasing size such that the isoperimetric number $h(X)$ satisfies $h(X) \geq \epsilon$
+    for some fixed positive $\epsilon$ and for all graphs $X$ in the sequence.
+    The isoperimetric number, in the context of finite graphs, can be defined as:
+    $$h(x) = \min{ \left\{ \frac{|\partial F|}{|F|} \mid F \subseteq V, |F| \leq \frac{n}{2}\right\} }$$
+    %\newline
 
-        \begin{rk}
-            Unless otherwise specified, all rings we discuss will be commutative with unit.
-        \end{rk}
+    Earlier in the seminar, we established that the isoperimetric number is bounded by the spectral gap, in particular,
+    $$\frac{k - \mu_1}{2} \leq h(x) \leq \sqrt{2k(k - \mu_1)}$$
+    where $\mu_1$ denotes the first nonzero eigenvalue.
+    Moreover, we showed that the spectral gap cannot grow too much, i.e.
+    $$\liminf\limits_{m \rightarrow +\infty}\mu_1 \geq 2 \sqrt{k-1}$$
+    %\newline
 
-        \begin{defn}
-            Let $f: A \rightarrow B$ be a ring homomorphism, and let $J \subset B$ be an ideal.
-            Then, the \emph{contraction} of $J$ to $A$ is $J^{c} \coloneqq \{a \in A \mid f(a) \in J\}$.
-        \end{defn}
+    In this session, we aim to strengthen this result by proving that a non-trivial fraction of the eigenvalues of the
+    graph lies within the interval $[(2 - \epsilon) \sqrt{k-1}, k]$ for any given $\epsilon > 0$.
+    \newline
 
-        \begin{prop}
-            In the above situation, $J^{c}$ is an ideal of $A$.
-        \end{prop}
+    To prove this, we introduce a set of matrices $A_r$, which are polynomials in the incidence matrix $A$.
+    The entries of $A_r$ describe the number of backtracking-free paths of length $r$ between two vertices.
+    \newline
 
-            \begin{proof}
-                It is an additive subgroup of $A$ as $f$ is an additive group homomorphism.
-                Furthermore, if $a \in J^{c}$ and $r \in A$, then $f(a) \in J$ so $f(ra) = f(r)f(a) \in J$ as $J$ is an ideal.
-            \end{proof}
+    After establishing the necessary properties of these polynomials, we compute their generating function which
+    is closely related to teh generating function of Chebyshev polynomials $(U_m)_{m\in \mathbb{N}}$.
+    This fact allows us to prove the following link between the two:
+    $$\sum_{x \in V} \sum_{0\leq r \leq\frac{m}{2}} \left(A_{m-2r}\right)_{xx} = (k-1)^{\frac{m}{2}} \sum_{j=0}^{n-1} U_m\left(\frac{\mu_j}{2\sqrt{k-1}}\right)$$
+    for all $m \in \mathbb{N}$.
+    Chebishev polynomials will be instrumental in introducing measures in the proof.
+    \newline
+
+    The key measure we use is:
+    $$\varv = \frac{1}{n} \sum^{n-1}_{j=0} \delta_{\frac{\mu_j}{\sqrt{k-1}}}$$
+    where $\delta_a$ is the Dirac measure at $a$, and $\mu_0, \dots, \mu_{n-1}$ are the eigenvalues of the graph.
+    The Dirac measure $\delta_a$ acts as an indicator function of whether $a$ lies in a given interval.
+    Hence, the measure $\varv$ counts the number of eigenvalues within a specific range.
+    \newline
+
+    We then prove that any measure $\varv'$ for which
+    $$\int_{-L}^L U_m\left(\frac{x}{2}\right) d\varv' \geq 0$$
+    for all $m$, satisfies that
+    $$\varv'[2-\epsilon, L] \geq C$$
+    where $C$ is a constant that only depends on $\epsilon$ and $L$, and is strictly positive.
+    \newline
+
+    Finally, we demonstrate that $\varv$ satisfies this condition and, with a suitable choice of $L$, we conclude the desired result.
+    \newline
+
+    As an additional result, we show a similar conclusion for the negative eigenvalues of the graph, generalizing an earlier result.
 
 \end{document}
