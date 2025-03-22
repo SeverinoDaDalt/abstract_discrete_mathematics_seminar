@@ -1,0 +1,55 @@
+%! Author = sdadalt
+%! Date = 20/3/25
+
+% Preamble
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz-cd}
+\usepackage{wasysym}
+%These are my Commutative Algebra Teory notes from the course given by Prof. Josep Alvarez Montaner at UPC in 2023.
+
+% Title
+\title{Seminar on Algebra, Geometry and Discrete Mathematics}
+\author{Severino Da Dalt}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{prop}[theorem]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{rk}[theorem]{Remark}
+
+% Document
+\begin{document}
+
+    \maketitle
+
+    \section{Proof of asymptotic behaviour of eigenvalues in families of expanders}\label{sec:section}
+
+        \begin{rk}
+            Unless otherwise specified, all rings we discuss will be commutative with unit.
+        \end{rk}
+
+        \begin{defn}
+            Let $f: A \rightarrow B$ be a ring homomorphism, and let $J \subset B$ be an ideal.
+            Then, the \emph{contraction} of $J$ to $A$ is $J^{c} \coloneqq \{a \in A \mid f(a) \in J\}$.
+        \end{defn}
+
+        \begin{prop}
+            In the above situation, $J^{c}$ is an ideal of $A$.
+        \end{prop}
+
+            \begin{proof}
+                It is an additive subgroup of $A$ as $f$ is an additive group homomorphism.
+                Furthermore, if $a \in J^{c}$ and $r \in A$, then $f(a) \in J$ so $f(ra) = f(r)f(a) \in J$ as $J$ is an ideal.
+            \end{proof}
+
+\end{document}

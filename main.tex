@@ -1,0 +1,128 @@
+\documentclass{amsart}
+\renewcommand{\baselinestretch}{1.1}
+%\setlength{\textwidth}{6.0in} \setlength{\oddsidemargin}{0.25in}
+%\setlength{\evensidemargin}{0.25in}
+%\renewcommand{\arraystretch}{.6}
+\parskip 2mm
+
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fullpage}
+
+%\setlength{\oddsidemargin}{.5in} \setlength{\evensidemargin}{.5in}
+%\setlength{\textwidth}{6.0in} \theoremstyle{plain}
+%\setlength{\topmargin}{-0.5in}\setlength{\textheight}{9.5in}
+
+\newtheorem{theirtheorem}{Theorem}
+\newtheorem{theirproposition}{Proposition}
+\renewcommand{\thetheirtheorem}{\Alph{theirtheorem}}
+\renewcommand{\thetheirproposition}{\Alph{theirproposition}}
+
+
+\theoremstyle{plain}
+\newtheorem{theorem}{\textbf{Theorem}}[section]
+\newtheorem{lemma}[theorem]{\textbf{Lemma}}
+\newtheorem{corollary}[theorem]{\textbf{Corollary}}
+\newtheorem{proposition}[theorem]{\textbf{Proposition}}
+\newtheorem{claim}{\textbf{Claim}}
+\newtheorem{conjecture}{\textbf{Conjecture}}[section]
+
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\Summ}[1]{\underset{#1}{\sum}}
+\newcommand{\sti}[2]{\left\{\begin{array}{c} #1 \\ #2 \end{array}\right\}}
+
+\newcommand{\diam}{\emph{diam}}
+\newcommand{\conv}{\mbox{Conv}}
+\newcommand{\C}{\mathcal {C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\D}{\mathcal{D}}
+
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\ber}{\begin{eqnarray}}
+\newcommand{\eer}{\end{eqnarray}}
+\newcommand{\nn}{\nonumber}
+
+\def\st{2}
+
+\thispagestyle{empty}
+\begin{document}
+{\Large Seminar on Algebra, Geometry and Discrete Mathematics \hspace*{10.5em} Severino Da Dalt}
+
+
+
+
+%\large{Master on Applied Mathematics, Fall 2007}
+
+
+{\Large Proof of asymptotic behaviour of eigenvalues in families of expanders}
+
+\vspace{0.5cm}
+
+ \hrule
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item[\textbf{Problem 1:}] Show how to prove that DIRECTED DOMINATING SET is NP-hard.
+To do so, provide a list of Karp reductions starting from 3SAT, which together produce a direct reduction.
+For each of them, cite the oldest known article where it appeared whenever possible (if no authorship is known, label it as folklore if it is well known or own work if it is your idea).
+You should explicitly define the reduction functions and constructed objects, but you do not need to prove their correctness.
+The goal is to establish a valid path to proving NP-hardness for DIRECTED DOMINATING SET through a series of simple reductions.
+\end{enumerate}
+\paragraph{\textbf{Solution:}}
+We will build a direct reduction of 3SAT to DIRECTED DOMINATING SET (DDS) (\textit{own work}). \newline
+Let $b$ be a $3$-CNF boolean formula $b$, with $m$ clauses $c_1, \dots, c_m$, and
+ $n$ variables $x_1, \dots, x_n$, i.e.
+ \[
+  b = c_1 \land \dots \land c_m =
+   \left(x_{i_{1,1}}^{j_{1,1}} \lor x_{i_{1,2}}^{j_{1,2}} \lor x_{i_{1,3}}^{j_{1,3}}\right) \land
+   \left(x_{i_{2,1}}^{j_{2,1}} \lor x_{i_{2,2}}^{j_{2,2}} \lor x_{i_{2,3}}^{j_{2,3}}\right) \land
+   \dots \land
+   \left(x_{i_{m,1}}^{j_{m,1}} \lor x_{i_{m,2}}^{j_{m,2}} \lor x_{i_{m,3}}^{j_{m,3}}\right)
+ \]
+ where the $i$'s take values between $1$ and $n$, and the $j$'s take value $0$ if the variable is negated, and $1$ otherwise. \newline
+The first step in our reduction will be to build the following graph $D_b = (V,E)$:
+\begin{enumerate}
+ \item The set of vertices $V(D_b)$ has $2n + m$ elements: one vertex $v_i$ for the positive instance of each variable $x_i$
+  ($n$ in total), one vertex $\overline{v_i}$ for the negated instance of each variable $x_i$ ($n$ in total), and
+  finally one vertex $w_i$ for each clause $c_i$ ($m$ in total).
+ \item The set of arcs $E(D_b)$ has $2n + 3m$ elements: for each $i \in [n]$ one arc connects $v_i$ to $\overline{v_i}$, and
+  one arc does the converse ($2n$ in total), and for each literal $x_i^j$ in each clause $c_k$, an arc connecting
+  the respective $v_i$ to the respective $w_k$ if $j = 1$, or an arc connecting $\overline{v_i}$ to $w_k$ if $j = 0$ ($3m$ in total).
+\end{enumerate}
+Notice that the number of vertices is polynomial, and thus the construction of such a graph is too.
+Now, solving DDS for the graph $D_b$ with $k = n$, is equivalent to solving 3SAT for $b$, i.e.
+\[
+ \left< D_b,n \right> \in \text{DDS} \Leftrightarrow b \in \text{3SAT}
+\]
+Let's prove this:
+\begin{itemize}
+ \item[($\Leftarrow$)] Choose $S$ to be the set of $n$ vertices corresponding the truth values (negated or not) of a solution
+   for $b$ of 3SAT.
+  Notice that one and only one counterpart (negated or not) of each $v_i$ appears in $S$.
+  Then, these vertices dominate the complementary $n$ vertices referent to the variables, since there are arcs pointing to each other,
+   and they also dominate the $m$ clauses since $S$ comes from a solution of 3SAT.
+ \item[($\Rightarrow$)] Suppose now that $S$ is a dominating set of $D$ of size $n$.
+  Since each variable is only dominated by its counterpart at least one of each variable counterpart is in $S$.
+  Also, since $S$ can only have $n$ vertices and all vertices needs to be covered, exactly one counterpart of each variable is in $S$.
+  Finally, since $S$ is a dominating set, each clause vertex is dominated by at least one variable vertex, and thus
+  $S$ (or the relative truth values of the variables) is a solution of $b$.
+\end{itemize}
+Thus, our reduction simply outputs the same answer of DDS for 3SAT.
+
+\begin{enumerate}
+\item[\textbf{Problem 2:}] %
+\end{enumerate}
+\paragraph{\textbf{Solution:}}
+
+\end{document}
