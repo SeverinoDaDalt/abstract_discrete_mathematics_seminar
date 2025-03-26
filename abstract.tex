@@ -57,30 +57,32 @@
     \newline
 
     After establishing the necessary properties of these polynomials, we compute their generating function which
-    is closely related to teh generating function of Chebyshev polynomials $(U_m)_{m\in \mathbb{N}}$.
-    This fact allows us to prove the following link between the two:
-    $$\sum_{x \in V} \sum_{0\leq r \leq\frac{m}{2}} \left(A_{m-2r}\right)_{xx} = (k-1)^{\frac{m}{2}} \sum_{j=0}^{n-1} U_m\left(\frac{\mu_j}{2\sqrt{k-1}}\right)$$
+    is closely related to the generating function of Chebyshev polynomials $(U_m)_{m\in \mathbb{N}}$.
+    This relationship between the two polynomials leads to the following key result:
+    \begin{equation}
+        \label{eq:1}
+        \sum_{x \in V} \sum_{0\leq r \leq\frac{m}{2}} \left(A_{m-2r}\right)_{xx} = (k-1)^{\frac{m}{2}} \sum_{j=0}^{n-1} U_m\left(\frac{\mu_j}{2\sqrt{k-1}}\right)
+    \end{equation}
     for all $m \in \mathbb{N}$.
-    Chebishev polynomials will be instrumental in introducing measures in the proof.
     \newline
 
-    The key measure we use is:
+    We then introduce the measure:
     $$\varv = \frac{1}{n} \sum^{n-1}_{j=0} \delta_{\frac{\mu_j}{\sqrt{k-1}}}$$
     where $\delta_a$ is the Dirac measure at $a$, and $\mu_0, \dots, \mu_{n-1}$ are the eigenvalues of the graph.
     The Dirac measure $\delta_a$ acts as an indicator function of whether $a$ lies in a given interval.
-    Hence, the measure $\varv$ counts the number of eigenvalues within a specific range.
+    Hence, this measure is in some way counting the number of eigenvalues within a specific range, which is central to the argument.
     \newline
 
-    We then prove that any measure $\varv'$ for which
-    $$\int_{-L}^L U_m\left(\frac{x}{2}\right) d\varv' \geq 0$$
-    for all $m$, satisfies that
-    $$\varv'[2-\epsilon, L] \geq C$$
+    Using equation~\eqref{eq:1}, we show that, for an appropriate choice of $L \geq 2$, $\varv$ satisfies:
+    $$\int_{-L}^L U_m\left(\frac{x}{2}\right) d\varv \geq 0$$
+    for all $m$.
+    Finally, we will see that this condition is sufficient to prove that the measure $\varv$ has a positive support in the interval $[2-\epsilon, L]$.
+    In other words,
+    $$\varv[2-\epsilon, L] \geq C$$
     where $C$ is a constant that only depends on $\epsilon$ and $L$, and is strictly positive.
+    This proves the main result.
     \newline
 
-    Finally, we demonstrate that $\varv$ satisfies this condition and, with a suitable choice of $L$, we conclude the desired result.
-    \newline
-
-    As an additional result, we show a similar conclusion for the negative eigenvalues of the graph, generalizing an earlier result.
+    Additionally, we show a similar conclusion for the negative eigenvalues of the graph, generalizing an earlier result.
 
 \end{document}
