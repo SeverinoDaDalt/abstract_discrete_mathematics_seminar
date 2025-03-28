@@ -12,12 +12,14 @@
 \usepackage{amssymb}
 \usepackage{tikz-cd}
 \usepackage{wasysym}
+\setlength{\parindent}{0pt}
+\usepackage[margin=70pt]{geometry}
 \DeclareSymbolFont{matha}{OML}{txmi}{m}{it}% txfonts
 \DeclareMathSymbol{\varv}{\mathord}{matha}{118}
 
 % Title
-\title{Seminar on Algebra, Geometry and Discrete Mathematics}
-\author{Severino Da Dalt}
+%\title{Seminar on Algebra, Geometry and Discrete Mathematics}
+%\author{Severino Da Dalt}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{corollary}{Corollary}[theorem]
@@ -29,17 +31,26 @@
 \newtheorem{rk}[theorem]{Remark}
 
 % Document
+
 \begin{document}
 
-    \maketitle
+    {\Large Seminar on Algebra, Geometry and Discrete Mathematics -- MAMME}
+    \newline
+    {Severino Da Dalt -- 2025-03-28}
+
+    \vspace{0.5cm}
+
+    \hrule
+
+    \vspace{0.5cm}
 
     \section{Proof of asymptotic behaviour of eigenvalues in families of expanders}\label{sec:section}
     The main topic of the seminar is the study of families of expanders in the context of connected, $k$-regular and finite graphs.
     A family of expanders consists in a sequence of graphs of increasing size such that the isoperimetric number $h(X)$ satisfies $h(X) \geq \epsilon$
     for some fixed positive $\epsilon$ and for all graphs $X$ in the sequence.
-    The isoperimetric number, in the context of finite graphs, can be defined as:
-    $$h(x) = \min{ \left\{ \frac{|\partial F|}{|F|} \mid F \subseteq V, |F| \leq \frac{n}{2}\right\} }$$
-    %\newline
+    %The isoperimetric number, in the context of finite graphs, can be defined as:
+    %$$h(x) = \min{ \left\{ \frac{|\partial F|}{|F|} \mid F \subseteq V, |F| \leq \frac{n}{2}\right\} }$$
+    \newline
 
     Earlier in the seminar, we established that the isoperimetric number is bounded by the spectral gap, in particular,
     $$\frac{k - \mu_1}{2} \leq h(x) \leq \sqrt{2k(k - \mu_1)}$$
@@ -56,30 +67,67 @@
     The entries of $A_r$ describe the number of backtracking-free paths of length $r$ between two vertices.
     \newline
 
-    After establishing the necessary properties of these polynomials, we compute their generating function which
-    is closely related to the generating function of Chebyshev polynomials $(U_m)_{m\in \mathbb{N}}$.
-    This relationship between the two polynomials leads to the following key result:
+    After establishing the necessary properties of these polynomials, we compute their generating function, which is
+    closely related to the generating function of Chebyshev polynomials $(U_m)_{m\in \mathbb{N}}$.
+    This allows us to relate the two polynomials:
     \begin{equation}
-        \label{eq:1}
+        \label{eq:relation_T_U}
+    T_m = (k-1)^{\frac{m}{2}} U_m\left(\frac{A}{2 \sqrt{k-1}}\right)
+    \end{equation}
+    where $T_m = \sum_{0 \leq r \leq \frac{m}{2}}$.
+    We then compute the trace of $T_m$ by, on one side using their definition, and on the other using
+    equation~\eqref{eq:relation_T_U}.
+    It follows that
+    \begin{equation}
+        \label{eq:relation_A_U}
         \sum_{x \in V} \sum_{0\leq r \leq\frac{m}{2}} \left(A_{m-2r}\right)_{xx} = (k-1)^{\frac{m}{2}} \sum_{j=0}^{n-1} U_m\left(\frac{\mu_j}{2\sqrt{k-1}}\right)
     \end{equation}
     for all $m \in \mathbb{N}$.
+    This result is particularly useful because it proves that the right side of the equation is positive.
     \newline
 
     We then introduce the measure:
     $$\varv = \frac{1}{n} \sum^{n-1}_{j=0} \delta_{\frac{\mu_j}{\sqrt{k-1}}}$$
     where $\delta_a$ is the Dirac measure at $a$, and $\mu_0, \dots, \mu_{n-1}$ are the eigenvalues of the graph.
     The Dirac measure $\delta_a$ acts as an indicator function of whether $a$ lies in a given interval.
-    Hence, this measure is in some way counting the number of eigenvalues within a specific range, which is central to the argument.
+    %Hence, this measure is in some way counting the number of eigenvalues within a specific range, which is central to the argument.
+    Thus, $\varv$ satisfies:
+    $$
+    \varv[2-\epsilon, L] = \frac{1}{n} \sum_{j=0}^{n-1}
+    $$
     \newline
 
-    Using equation~\eqref{eq:1}, we show that, for an appropriate choice of $L \geq 2$, $\varv$ satisfies:
-    $$\int_{-L}^L U_m\left(\frac{x}{2}\right) d\varv \geq 0$$
-    for all $m$.
-    Finally, we will see that this condition is sufficient to prove that the measure $\varv$ has a positive support in the interval $[2-\epsilon, L]$.
-    In other words,
-    $$\varv[2-\epsilon, L] \geq C$$
-    where $C$ is a constant that only depends on $\epsilon$ and $L$, and is strictly positive.
+    To conclude the proof we will use equation~\ref{eq:relation_A_U} to prove that $\varv$ measures at least a strictly
+    positive amount $C = C(\epsilon)$ in the interval $[2-\epsilon, L]$.
+    To prove this, we first define polynomials $X_m = U_m(\frac{x}{2})$ and $Y_m(x) = \frac{X_m(x)^2}{x - \alpha_m}$ where
+    $\alpha_m$ is the largest root of $X_m$.
+    Then we will show some properties concerning these polynomials.
+    In particular, we will see that, for all $m \geq 0$, $Y_m$ is a linear combination with non-negative coefficients
+    of $X_0, X_1, \dots, X_{2m-1}$.
+    \newline
+
+    It follows that, if $\int_{-L}^{L} X_m(x) d \varv(x) \geq 0$, then $\int_{-L}^{L} Y_m(x) d \varv(x) \geq 0$.
+    Since $Y_m(x) \leq 0$ when $x \leq \alpha_m$, and $\alpha_m > 2 - \epsilon$ for $m$ large enough,
+    it can be proved that the measure of $\varv$ in the interval $[2-\epsilon, L]$ is strictly positive.
+    Finally, we see that actually $\varv[2 - \epsilon, L] \geq C(\epsilon) > 0$, by using a compactness argument in the
+    weak topology.
+    \newline
+
+    The next step is to prove that $\varv$ effectively satisfies $\int_{-L}^{L} X_m(x) d \varv(x) \geq 0$,
+    which follows the definition of $\varv$ and Dirac measure:
+    $$
+    \int_{-L}^L U_m(\frac{x}{2}) d\varv(x) =
+        \frac{1}{n} \sum_{j=0}^{n-1} \int_{-L}^L U_m\left(\frac{x}{2}\right) d \delta_{\frac{\mu_j}{\sqrt{k-1}}} =
+        \frac{1}{n} \sum_{j=0}^{n-1} U_m\left( \frac{\mu_j}{\sqrt{k-1}} \right)
+    $$
+    The assumption is satisfied, therefore there exists $C = C(\epsilon, k) > 0$ such that $\varv[2 - \epsilon] \geq C$.
+    %Using equation~\eqref{eq:relation_A_U}, we show that, for an appropriate choice of $L \geq 2$, $\varv$ satisfies:
+    %$$\int_{-L}^L U_m\left(\frac{x}{2}\right) d\varv \geq 0$$
+    %for all $m$.
+    %Finally, we will see that this condition is sufficient to prove that the measure $\varv$ has a positive support in the interval $[2-\epsilon, L]$.
+    %In other words,
+    %$$\varv[2-\epsilon, L] \geq C$$
+    %where $C$ is a constant that only depends on $\epsilon$ and $L$, and is strictly positive.
     This proves the main result.
     \newline
 
